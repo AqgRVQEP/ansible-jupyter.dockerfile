@@ -1,7 +1,5 @@
 FROM centos:7
 
-MAINTAINER Chu-Siang Lai <chusiang@drx.tw>
-
 # Upgrade and add third-party repository.
 RUN yum update -y && \
       yum install -y epel-release
@@ -24,12 +22,12 @@ RUN mkdir /etc/ansible && \
       /bin/echo -e "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
 
 # Setup with Ansible.
-ADD https://raw.githubusercontent.com/chusiang/ansible-jupyter.dockerfile/master/setup_jupyter.yml /home
+ADD https://raw.githubusercontent.com/KyleChou/ansible-jupyter.dockerfile/master/setup_jupyter.yml /home
 RUN ansible-playbook -vvvv /home/setup_jupyter.yml
 
 # Copy a ipython notebook example to image.
-ADD https://raw.githubusercontent.com/chusiang/ansible-jupyter.dockerfile/master/ipynb/ansible_on_jupyter.ipynb /home/
-ADD https://raw.githubusercontent.com/chusiang/ansible-jupyter.dockerfile/master/ipynb/ansible_on_jupyter_centos.ipynb /home/
+ADD https://raw.githubusercontent.com/KyleChou/ansible-jupyter.dockerfile/master/ipynb/ansible_on_jupyter.ipynb /home/
+ADD https://raw.githubusercontent.com/KyleChou/ansible-jupyter.dockerfile/master/ipynb/ansible_on_jupyter_centos.ipynb /home/
 
 # Run service of Jupyter.
 COPY docker-entrypoint.sh /usr/local/bin/
